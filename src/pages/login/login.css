@@ -1,0 +1,104 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: Helvetica;
+    box-sizing: border-box;
+}
+
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-image: url("../../assets/AgendaPAE.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
+.container-login{
+    width: 70%;
+    background-color: #536959;
+    padding: 90px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-around;
+
+}
+
+.container-login h1{
+    text-align: center;
+    font-size: 30px;
+    color: #fff;
+}
+
+form{
+    border-left: 3px solid #fff;
+    padding: 0px 0px 0px 50px;
+}
+
+.container-login .input-field {
+    position: relative;
+    width: 100%;
+    height: 50px;
+    margin: 30px auto;
+    display: flex;
+    align-items: center;
+}
+
+.input-field input {
+    width: 100%;
+    height: 100%;
+    outline: none;
+    border: 1px solid black;
+    border-radius: 40px;
+    font-size: 16px;
+    color: #000;
+    padding: 20px 25px;
+}
+
+.input-field .icon {
+    width: 15%;
+    height: 70%;
+    font-size: 18px;
+    color: #c2ccc5;
+    padding: 0px 10px 0px 0px;
+}
+
+.container-login .recall-forget {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    margin: -15px 0 15px;
+}
+
+.recall-forget label {
+    color: #c2ccc5;
+}
+
+.recall-forget input {
+    margin-right: 5px;
+}
+
+.recall-forget a {
+    color: #c2ccc5;
+    text-decoration: none;
+}
+
+.recall-forget a:hover{
+    text-decoration: underline;
+}
+
+.container-login button{
+    width: 50%;
+    height: 50px;
+    background-color: #fff;
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    text-shadow: none;
+    margin-left: 25%;
+}
