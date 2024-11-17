@@ -68,24 +68,6 @@ router.post('/', async (req, res) => {
   }
 });
 
-// router.post('/', async (req, res) => {
-//   const { professional } = req.body;
-
-//   try {
-//     // Validação básica do formato dos horários
-//     if (!/^\d{2}:\d{2}$/.test(professional.professional_entryTime) || !/^\d{2}:\d{2}$/.test(professional.professional_exitTime)) {
-//       return res.status(400).json({ message: 'Horários devem estar no formato HH:mm.' });
-//     }
-
-//     const newProfessional = await Professional.create(professional);
-//     console.log('Objeto salvo com sucesso!');
-//     res.json({ message: 'Profissional salvo com sucesso!', newProfessional });
-//   } catch (err) {
-//     res.status(400).json({ message: err.message });
-//   }
-// });
-
-
 // Alterar um profissional
 // PUT "/professionals/:id" BODY { ... }
 router.put('/:pid', async (req, res) => {
@@ -117,31 +99,6 @@ router.put('/:pid', async (req, res) => {
     res.status(400).json({ message: err.message });
   }
 });
-
-// router.put('/:pid', async (req, res) => {
-//   const pid = req.params.pid;
-//   const { professional } = req.body;
-
-//   try {
-//     // Validação básica do formato dos horários
-//     if (!/^\d{2}:\d{2}$/.test(professional.professional_entryTime) || !/^\d{2}:\d{2}$/.test(professional.professional_exitTime)) {
-//       return res.status(400).json({ message: 'Horários devem estar no formato HH:mm.' });
-//     }
-
-//     const updatedProfessional = await Professional.findByIdAndUpdate(
-//       pid,
-//       {
-//         ...professional
-//       },
-//       { new: true }
-//     );
-//     console.log('Objeto Atualizado:', updatedProfessional);
-//     res.json({ message: 'Profissional alterado com sucesso!', updatedProfessional });
-//   } catch (err) {
-//     res.status(400).json({ message: err.message });
-//   }
-// });
-
 
 // Deletar um profissional
 // DELETE "/professionals/:id"
