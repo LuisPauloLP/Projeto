@@ -10,8 +10,6 @@ mongoose.connection.on('connected', () => {
 
 const usersSchema = new mongoose.Schema({
   author_name: String,
-  author_email: String,
-  author_type: String,
   author_user: String,
   author_pwd: String,
   author_level: String,
@@ -81,8 +79,6 @@ router.put('/:pid', async (req, res) => {
     const updatedUser = await User.findByIdAndUpdate(pid, 
       { 
         author_name: newUser.author_name, 
-        author_email: newUser.author_email,
-        author_type: newUser.author_type,
         author_pwd: newUser.author_pwd,
         author_level: newUser.author_level,
         author_status: newUser.author_status,
