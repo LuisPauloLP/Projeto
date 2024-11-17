@@ -1,0 +1,36 @@
+#menuSignup {
+    background-color: #5C7362;;
+    display: flex;
+}
+
+#menu_ul{
+    margin: 40px;
+}
+
+#ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    color: #5C7362;
+    background-color: #F2B705;
+    width: 300px;
+    height: 50px;
+    margin: 40px;
+    font-size: 16px;
+    text-align: center;
+    border-radius: 50px;
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    font-weight: 400;
+    font-size: 1.3em;
+}
+
+body{
+    background-color: #5C7362;
+}
+
+#tabela{
+    justify-items: center;
+    text-align: center;
+    margin-bottom: 50px;
+}
