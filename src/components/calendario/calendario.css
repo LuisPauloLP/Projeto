@@ -1,0 +1,301 @@
+/* CALENDARIO */
+.calendar{
+    height: 88vh;
+    width: 173vh;
+}
+
+.container-tela {
+    background-color: #fff; 
+    padding: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.tela{
+    background-color: #eee3d2;
+    border-radius: 8px; 
+    padding: 11px;
+}
+
+/* MODEL */
+.model{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.model-content{
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 6px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    max-width: 300px;
+    width: 100%; 
+}
+
+.model-content h2{
+    padding: 0px 0px 5px 0px;
+}
+
+.model-content p{
+    padding: 2px 0px 2px 0px;
+    font-size: 18px;
+}
+
+.model-content button{
+    margin: 5px 0px 0px 0px;
+    cursor: pointer;
+}
+
+.container-top{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+}
+
+.container-top .button-fechar{
+    cursor: pointer;
+}
+
+.container-bottom{
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: row;
+}
+
+.container-bottom button{
+    padding: 1px 1px 1px 1px;
+    padding: 3px;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+/*CALENDARIO*/
+/*HEADER E BOTÕES*/
+.rbc-toolbar{
+    height: 10vh;
+    color: #536959;
+    font-size: 25px;
+}
+
+.bc-btn-group > button {
+    border: 0;
+}
+
+.rbc-toolbar button {
+    background-color: #eee3d2;
+    border: 1px solid #fff;
+}
+
+.rbc-toolbar button:active,
+.rbc-toolbar button.rbc-active{
+    background-color: #fff;
+    border-color: #536959;
+}
+
+/* CORPO CALENDARIO */
+/*LINHAS*/
+.rbc-month-view{
+    border-color: #536959;
+}
+
+.rbc-month-row + .rbc-month-row{
+    border-color: #536959;
+}
+
+.rbc-day-bg + .rbc-day-bg{
+    border-color: #536959;
+}
+
+
+/*MES*/
+.rbc-header{
+    background-color: #536959;
+    color: #fff;
+}
+
+.rbc-header + .rbc-header{
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
+    border-color: #536959;
+    padding-bottom: 5px;;
+}
+.rbc-today{
+    background-color: #fff;
+}
+
+.rbc-today span{
+    color: #536959;
+}
+
+.rbc-button-link{
+    margin: 5px;
+    font-size: 15px;
+}
+
+.rbc-now .rbc-button-link{
+    background-color: #536959;
+    color: #fff;
+    border-radius: 2px;
+    padding-left:  2px;
+    padding-right: 2px;
+    margin: 5px;
+    font-size: 16px;;
+}
+
+.rbc-time-gutter .rbc-time-column{
+    background-color: #536959;
+}
+
+.rbc-time-content, .rbc-time-content > .rbc-day-slot, .rbc-timeslot-group, .rbc-time-slot{
+    color: #a67d7d;
+    border-color: #536959;
+}
+
+.rbc-day-slot .rbc-time-slot{
+    border-top: 1px solid #536959;
+}
+
+/* AGENDA */
+.rbc-agenda-content, .rbc-agenda-view{
+    color: #fff;
+}
+
+/*BOTÃO ADICIONAR AGENDAMENTO*/
+.container-adicionar {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center; 
+}
+
+.container-adicionar.show {
+    display: flex;
+}
+
+.container-adicionar-content {
+    background-color: #fff;
+    width: 400px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transform: translate(-50%, -50%);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+}
+
+.form-adicionar{
+    display: flex;
+    flex-direction: column;
+}
+
+.form-adicionar input{
+    padding: 5px;
+    margin: 3px;
+}
+
+.form-adicionar .input-text{
+    width: 305px;
+}
+
+.form-adicionar select{
+    padding: 5px;
+    margin: 3px;
+    width: 255px;
+}
+
+.form-adicionar .select-status{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.container-agendamento{
+    display: flex;
+    flex-direction: row-reverse;
+    margin: 0px 0px 8px 0px;
+}
+
+.container-agendamento .button-fechar{
+    cursor: pointer;
+}
+
+.container-data{
+    display: flex;
+    flex-direction: row;
+    align-content: space-between;
+}
+
+.input-data{
+    width: 150px;
+}
+
+.button-submit{
+    width: 150px;
+    padding: 5px;
+    margin: 8px 0px 0px 0px;
+    cursor: pointer;
+}
+
+.container-adicionar-agendamento{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.toolbar .button-adicionar{
+    padding: 5px;
+    font-size: 15px;
+    color: #fff;
+    background-color: #fdbd00;
+    border-radius:  4px;
+    border: none;
+    cursor: pointer;
+}
+
+.toolbar .button-adicionar:hover{
+    background-color: #fff;
+    color: #fdbd00;
+}
+
+.toolbar{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+/* BARRA DE PESQUISA */
+.barra-pesquisa input{
+    margin-right: 10px;
+    padding: 5px;
+    border-radius: 4px;
+}
+
+.barra-pesquisa button{
+    padding: 5px;
+    font-size: 15px;
+    color: #fff;
+    background-color: #fdbd00;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+}
+
+.barra-pesquisa button:hover{
+    background-color: #fff;
+    color: #fdbd00;
+}
