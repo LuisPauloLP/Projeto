@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { BiLogOut } from 'react-icons/bi';
 import { AiFillHome, AiFillCalendar, AiFillBell, AiOutlineUserAdd, AiFillSetting } from 'react-icons/ai';
-//import "./header.css";
+import "./header.css";
 import Perfil from '../../imgs/perfil.png';
 
 function Header(){
@@ -24,16 +24,8 @@ function Header(){
                         <Link className='link' to="/appointments">Agendamentos</Link>
                     </div>
                     <div className='div-header'>
-                        <AiFillBell className='icon-header'/>
-                        <Link className='link' to="/notifications">Notificações</Link>
-                    </div>
-                    <div className='div-header'>
                         <AiOutlineUserAdd className='icon-header'/>
                         <Link className='link' to="/signup">Cadastros</Link>
-                    </div>
-                    <div className='div-header'>
-                        <AiFillSetting className='icon-header'/>
-                        <Link className='link' to="/config">Configurações</Link>
                     </div>
                 </section>
                 <section className='container-saida'>
