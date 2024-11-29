@@ -1,3 +1,4 @@
+import React from 'react';
 import MenuStudents from '@/components/signup/MenuStudents';
 import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
@@ -74,8 +75,8 @@ export default function readstudent() {
         }
       </div>
   
-      <div id="tabela">
-        <div>
+      <div>
+        <div className="container">
             <div className="row border-bottom">
                 <h3> Detalhes do Estudante </h3>
             

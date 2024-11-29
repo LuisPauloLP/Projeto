@@ -43,7 +43,7 @@ const Login = () => {
   }
 
   return (
-    <div className='container'>
+    <div className='container_login'>
       <div className='container-login'>
 
         <img src={Logo}></img>

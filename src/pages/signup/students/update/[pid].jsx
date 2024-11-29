@@ -1,3 +1,4 @@
+import React from 'react';
 import Axios from 'axios';
 import MenuStudents from '@/components/signup/MenuStudents';
 import { Helmet } from 'react-helmet';
@@ -99,8 +100,8 @@ export default function updatestudent() {
         }
       </div>
   
-      <div id="tabela">
-        <div>
+      <div>
+        <div className="container"> 
             <div className="row border-bottom">
                 <h3> Edição de Estudante </h3>
             

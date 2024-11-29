@@ -1,4 +1,5 @@
 import Axios from 'axios';
+import React from 'react';
 import MenuUsers from '@/components/signup/MenuUsers';
 import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
@@ -91,8 +92,8 @@ export default function updateuser() {
         }
       </div>
   
-      <div id="tabela">
-        <div>
+      <div>
+        <div className="container">
             <div className="row border-bottom">
                 <h3> Edição de Usuário </h3>
             

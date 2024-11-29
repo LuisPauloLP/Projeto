@@ -1,4 +1,5 @@
 import MenuUsers from '@/components/signup/MenuUsers';
+import React from 'react';
 import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
@@ -85,8 +86,8 @@ export default function deleteuser() {
         }
       </div>
   
-      <div id="tabela">
-        <div>
+      <div>
+        <div className="container">
             <div className="row border-bottom">
                 <h3> Edição de Usuário </h3>
             

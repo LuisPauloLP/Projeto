@@ -1,3 +1,4 @@
+import React from 'react';
 import Axios from 'axios'
 import ProfessionalsAction from '@/components/signup/ProfessionalsAction'
 import { Helmet } from 'react-helmet'
@@ -38,8 +39,8 @@ export default function professionals() {
       </div>
 
   
-      <div id="tabela">
-        <div>
+      <div>
+        <div className="container">
         <div className="row border-bottom">
         <h3> Lista de Profissionais </h3>
         

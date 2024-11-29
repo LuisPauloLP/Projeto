@@ -1,12 +1,13 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
 
 export default function MenuUsers() {
     return (
 
-    <div id="menuSignup">
-        <div id="ul"><Link id="ul" to="/signup">Cadastros</Link></div>
-        <div id="ul"><Link id="ul" to="/signup/users">Usuários</Link></div>
-        <div id="ul"><Link id="ul" to="/signup/users/create">Novo Usuário</Link></div>
+    <div className="d-flex justify-content-start">
+        <div><Link className="navbar-brand" to="/signup">Cadastros</Link></div>
+        <div><Link className="nav-link" to="/signup/users">Usuários</Link></div>
+        <div><Link className="nav-link" to="/signup/users/create">Novo Usuário</Link></div>
     </div>
 
     )

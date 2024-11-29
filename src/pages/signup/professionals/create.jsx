@@ -1,3 +1,4 @@
+import React from 'react';
 import MenuProfessionals from '@/components/signup/MenuProfessionals';
 import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
@@ -71,8 +72,8 @@ export default function createprofessional() {
         }
       </div>
   
-      <div id="tabela">
-        <div>
+      <div>
+        <div className="container">
             <div className="row border-bottom">
                 <h3> Cadastro de Profissional </h3>
             

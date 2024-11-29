@@ -1,3 +1,4 @@
+import React from 'react';
 import MenuStudents from '@/components/signup/MenuStudents';
 import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
@@ -85,8 +86,8 @@ export default function deletestudent() {
         }
       </div>
   
-      <div id="tabela">
-        <div>
+      <div>
+        <div className="container">
             <div className="row border-bottom">
                 <h3> Edição de Estudante </h3>
             

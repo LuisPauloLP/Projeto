@@ -1,6 +1,251 @@
-#menuSignup {
-    background-color: #5C7362;;
+#nav-signup{
     display: flex;
+    height: 100px;
+    width: 100%;
+}
+
+#header{
+    float: left;
+    width: 1000px;
+    height: 400px;
+}
+
+body {
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif; /* Fonte padrão */
+    margin: 0;
+    padding: 0;
+    background-color: #eee3d2; /* Fundo suave */
+    color: #333333; /* Cor de texto padrão */
+  }
+
+.body{
+    background-color: #3D5045;
+}
+
+  /* Container principal da navegação */
+.d-flex {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    background-color: #5C7362; /* Fundo compartilhado */
+    padding: 1rem 2rem; /* Espaçamento interno */
+    box-shadow: -10px 10px 10px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+    width: 100%;
+}
+
+/* Links da navegação */
+.navbar-brand,
+.nav-link {
+  display: inline-block;
+  margin: 0 1.5rem; /* Espaçamento entre os links */
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #FFFFFF; /* Texto branco */
+  text-decoration: none; /* Remove sublinhado */
+  padding: 0.5rem 0; /* Espaçamento interno */
+  position: relative; /* Necessário para o efeito inovador */
+  transition: color 0.3s ease, transform 0.2s ease;
+}
+
+/* Efeito de destaque ao passar o mouse */
+.navbar-brand:hover,
+.nav-link:hover {
+  color: #A8D5BA; /* Texto em verde claro no hover */
+  transform: translateY(-3px); /* Leve movimento para cima */
+}
+
+/* Destaque visual ativo */
+.navbar-brand.active,
+.nav-link.active {
+  color: #FFD700; /* Dourado para o link ativo */
+  text-shadow: 0 0 10px #FFD700; /* Efeito de brilho */
+}
+
+/* Efeito de barra contínua ao passar o mouse */
+.navbar-brand:hover::before,
+.nav-link:hover::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 4px; /* Altura da barra */
+  background: #A8D5BA; /* Cor da barra */
+  border-radius: 4px; /* Bordas arredondadas */
+  transform: scaleX(1); /* Expande a barra */
+  transition: transform 0.3s ease;
+}
+
+/* Estado padrão da barra contínua */
+.navbar-brand::before,
+.nav-link::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: transparent; /* Invisível inicialmente */
+  transform: scaleX(0); /* Contraída */
+  transition: transform 0.3s ease;
+}
+/* Container geral da página */
+.container {
+    max-width: 1200px;
+    margin: 2rem auto; /* Centraliza o conteúdo */
+    padding: 2rem; /* Espaçamento interno */
+    background-color: #F4F7F6; /* Cor de fundo suave */
+    border-radius: 8px; /* Bordas arredondadas */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  }
+
+  /* Título da seção */
+h3 {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #5C7362; /* Cor verde da navegação */
+    margin-bottom: 1.5rem; /* Espaçamento abaixo do título */
+    border-bottom: 2px solid #5C7362; /* Linha de separação abaixo do título */
+    padding-bottom: 0.5rem;
+  }
+
+/* Tabela */
+.table {
+    width: 100%;
+    margin-top: 2rem; /* Espaçamento superior */
+    border-collapse: collapse; /* Remove espaçamento entre as células */
+  }
+  
+  /* Estilo das células da tabela */
+  .table th, .table td {
+    padding: 1rem;
+    text-align: left;
+    font-size: 1rem;
+    border-bottom: 1px solid #e0e0e0; /* Linha de separação suave entre as linhas */
+  }
+  
+  .table th {
+    background-color: #5C7362; /* Cor do cabeçalho */
+    color: #FFFFFF; /* Cor do texto no cabeçalho */
+    font-weight: bold;
+  }
+  
+  .table tbody tr:hover {
+    background-color: #A8D5BA; /* Cor de fundo suave ao passar o mouse */
+    cursor: pointer; /* Indica que a linha é clicável */
+  }
+  
+  /* Estilo da ação do usuário */
+  .table td .UserAction {
+    background-color: #5C7362; /* Cor de fundo dos botões de ação */
+    color: #FFFFFF; /* Cor do texto */
+    padding: 0.5rem 1rem;
+    border-radius: 4px; /* Bordas arredondadas */
+    text-decoration: none; /* Remove sublinhado */
+    transition: background-color 0.3s ease;
+  }
+  
+  /* Efeito de hover para a ação do usuário */
+  .table td .UserAction:hover {
+    background-color: #A8D5BA; /* Cor de fundo ao passar o mouse */
+  }
+
+
+
+/*CREATE DOS CADASTROS
+/* Estilo geral do container */
+.container-create {
+    background-color: #f5efe3; /* Cor de fundo bege */
+    border-radius: 10px;
+    padding: 20px;
+    max-width: 900px;
+    margin: auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Título */
+  .container-create h3 {
+    font-family: Arial, sans-serif;
+    color: #4f5d38; /* Cor verde-escuro */
+    text-align: center;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  
+  /* Estilo do formulário */
+  form {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Define 3 colunas de tamanho igual */
+    gap: 20px; /* Espaço entre os campos */
+  }
+  
+  /* Estilo dos campos de entrada */
+  .form-group {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .form-label {
+    font-size: 14px;
+    color: #4f5d38;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .form-control, .form-select {
+    padding: 10px;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    background-color: #f8c849; /* Cor amarela */
+    color: #4f5d38;
+    font-size: 14px;
+  }
+  
+  .form-control:focus, .form-select:focus {
+    outline: none;
+    border-color: #c8a742;
+    box-shadow: 0 0 5px rgba(200, 167, 66, 0.5);
+  }
+  
+  /* Botões */
+  .btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .btn-outline-success {
+    background-color: #4f5d38;
+    color: #fff;
+    margin-right: 10px;
+  }
+  
+  .btn-outline-info {
+    background-color: #ccc;
+    color: #4f5d38;
+  }
+  
+  .btn:hover {
+    opacity: 0.9;
+  }
+  
+  /* Para que os botões fiquem em uma linha separada */
+  .form-group.p-2 {
+    grid-column: span 3; /* Ocupa toda a largura da grid */
+    text-align: center;
+  }
+  
+  
+
+
+/* 
+#menuSignup {
+    background-color: #5C7362;
+    display: flex;
+    margin-left: 0px;
 }
 
 #menu_ul{
@@ -23,14 +268,24 @@
     font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
     font-weight: 400;
     font-size: 1.3em;
-}
+} */
 
-body{
-    background-color: #5C7362;
-}
-
-#tabela{
-    justify-items: center;
-    text-align: center;
-    margin-bottom: 50px;
-}
+/* Responsividade */
+@media screen and (max-width: 768px) {
+    #pages-info {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  
+  /* Ajuste de responsividade - Em telas menores, a tabela deve ocupar o máximo possível */
+  @media (max-width: 768px) {
+    .table th, .table td {
+      font-size: 0.9rem; /* Reduz o tamanho da fonte para telas pequenas */
+      padding: 0.8rem; /* Ajuste no padding */
+    }
+  
+    h3 {
+      font-size: 1.5rem; /* Ajuste no tamanho do título */
+    }
+  }

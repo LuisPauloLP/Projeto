@@ -1,3 +1,4 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { BiLogOut } from 'react-icons/bi';
 import { AiFillHome, AiFillCalendar, AiFillBell, AiOutlineUserAdd, AiFillSetting } from 'react-icons/ai';
@@ -12,7 +13,7 @@ function Header(){
                     {/* VERIFICAR COMO COLOCAR UMA FOTO QUE O CLIENTE POSSA ESCOLHER */}
                     <img className="img_perfil" src={Perfil}></img>
                     {/* PUXAR O NOME DO BANCO DE DADOS DE ACORDO COM O PERFIL QUE ESTA SENDO USADO */}
-                    <h3>Nome</h3>
+                    <h2>Nome</h2>
                 </section>
                 <section className='container-header'>
                     <div className='div-header'>
