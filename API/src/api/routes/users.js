@@ -10,6 +10,7 @@ mongoose.connection.on('connected', () => {
 
 const usersSchema = new mongoose.Schema({
   author_name: String,
+  author_email: String,
   author_user: String,
   author_pwd: String,
   author_level: String,
@@ -18,6 +19,17 @@ const usersSchema = new mongoose.Schema({
 });
 
 const User = mongoose.model('User', usersSchema); //MONGODB
+
+// Buscar usuários por nome
+router.get('/search', async (req, res) => {
+  const nome = req.query.name; // O nome será passado como parâmetro na query string
+  try {
+    const users = await User.find({ author_name: { $regex: nome, $options: 'i' } }); // Busca por nome parcial, case insensitive
+    res.json(users);
+  } catch (err) {
+    res.status(500).json({ message: 'Erro ao buscar usuários.', error: err.message });
+  }
+});
 
 // Retornar todos os usuários
 // GET "/users"
@@ -43,6 +55,7 @@ router.get('/:pid', async (req, res) => {
     res.status(400).json({ message: err.message });
   }
 });
+
 
 // // Retornar um usuário específico
 // // GET /users/:user
@@ -79,6 +92,7 @@ router.put('/:pid', async (req, res) => {
     const updatedUser = await User.findByIdAndUpdate(pid, 
       { 
         author_name: newUser.author_name, 
+        author_email: newUser.author_email,
         author_pwd: newUser.author_pwd,
         author_level: newUser.author_level,
         author_status: newUser.author_status,

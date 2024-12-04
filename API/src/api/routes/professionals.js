@@ -5,7 +5,7 @@ const router = express.Router();
 const mongoose = require('mongoose');
 mongoose.connect('mongodb://127.0.0.1:27017/bc', { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.connection.on('connected', () => {
-  console.log('MongoDB conectado');
+  console.log('MongoDB conectado Profissionais');
 });
 
 const professionalsSchema = new mongoose.Schema({
@@ -13,7 +13,7 @@ const professionalsSchema = new mongoose.Schema({
     professional_surname: String,
     professional_cpf: Number,
     professional_email: String,
-    professional_date_of_born: Date,
+    professional_date_of_born: { type: Date, required: true },
     professional_phone: Number,
     professional_cep: Number,
     professional_logradouro: String,
@@ -29,6 +29,17 @@ const professionalsSchema = new mongoose.Schema({
   });
 
 const Professional = mongoose.model('Professional', professionalsSchema); //MONGODB
+
+// Buscar usuários por nome
+router.get('/search', async (req, res) => {
+  const nome = req.query.name; // O nome será passado como parâmetro na query string
+  try {
+    const professionals = await Professional.find({ professional_name: { $regex: nome, $options: 'i' } }); // Busca por nome parcial, case insensitive
+    res.json(professionals);
+  } catch (err) {
+    res.status(500).json({ message: 'Erro ao buscar profissionais.', error: err.message });
+  }
+});
 
 // Retornar todos os profissionais
 // GET "/professionals"
@@ -68,6 +79,24 @@ router.post('/', async (req, res) => {
   }
 });
 
+// router.post('/', async (req, res) => {
+//   const { professional } = req.body;
+
+//   try {
+//     // Validação básica do formato dos horários
+//     if (!/^\d{2}:\d{2}$/.test(professional.professional_entryTime) || !/^\d{2}:\d{2}$/.test(professional.professional_exitTime)) {
+//       return res.status(400).json({ message: 'Horários devem estar no formato HH:mm.' });
+//     }
+
+//     const newProfessional = await Professional.create(professional);
+//     console.log('Objeto salvo com sucesso!');
+//     res.json({ message: 'Profissional salvo com sucesso!', newProfessional });
+//   } catch (err) {
+//     res.status(400).json({ message: err.message });
+//   }
+// });
+
+
 // Alterar um profissional
 // PUT "/professionals/:id" BODY { ... }
 router.put('/:pid', async (req, res) => {
@@ -99,6 +128,31 @@ router.put('/:pid', async (req, res) => {
     res.status(400).json({ message: err.message });
   }
 });
+
+// router.put('/:pid', async (req, res) => {
+//   const pid = req.params.pid;
+//   const { professional } = req.body;
+
+//   try {
+//     // Validação básica do formato dos horários
+//     if (!/^\d{2}:\d{2}$/.test(professional.professional_entryTime) || !/^\d{2}:\d{2}$/.test(professional.professional_exitTime)) {
+//       return res.status(400).json({ message: 'Horários devem estar no formato HH:mm.' });
+//     }
+
+//     const updatedProfessional = await Professional.findByIdAndUpdate(
+//       pid,
+//       {
+//         ...professional
+//       },
+//       { new: true }
+//     );
+//     console.log('Objeto Atualizado:', updatedProfessional);
+//     res.json({ message: 'Profissional alterado com sucesso!', updatedProfessional });
+//   } catch (err) {
+//     res.status(400).json({ message: err.message });
+//   }
+// });
+
 
 // Deletar um profissional
 // DELETE "/professionals/:id"

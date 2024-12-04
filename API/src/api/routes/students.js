@@ -13,7 +13,7 @@ const studentsSchema = new mongoose.Schema({
     student_surname: String,
     student_cpf: Number,
     student_email: String,
-    student_date_of_born: Date,
+    student_date_of_born:{ type: Date, required: true },
     student_phone: Number,
     student_cep: Number,
     student_logradouro: String,
@@ -26,6 +26,17 @@ const studentsSchema = new mongoose.Schema({
   });
 
 const Student = mongoose.model('Student', studentsSchema); //MONGODB
+
+// Buscar estudantes por nome
+router.get('/search', async (req, res) => {
+  const nome = req.query.name; // O nome será passado como parâmetro na query string
+  try {
+    const students = await Student.find({ student_name: { $regex: nome, $options: 'i' } }); // Busca por nome parcial, case insensitive
+    res.json(students);
+  } catch (err) {
+    res.status(500).json({ message: 'Erro ao buscar estudantes.', error: err.message });
+  }
+});
 
 // Retornar todos os estudantes
 // GET "/students"
