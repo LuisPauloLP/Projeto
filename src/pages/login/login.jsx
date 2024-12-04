@@ -48,7 +48,7 @@ const Login = () => {
 
         <img src={Logo}></img>
 
-        <form onSubmit={handleSubmit}>
+        <form classname="form" onSubmit={handleSubmit}>
           <h1>LOGIN</h1>
           <div className='input-field'>
             <FaUser className='icon' />
