@@ -12,7 +12,7 @@
     width: 1000px;
     max-height: 400px;
 }
-/* 
+
 body {
     font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif; 
     margin: 0;
@@ -20,9 +20,14 @@ body {
     background-color: #F4F7F6;
     color: #FFFFFF; 
     font-weight: 500;
-  } */
+  }
 body h2{
   color: #ffffff;
+}
+
+.flex_signup{
+  display: flex;
+  flex-direction: row;
 }
 
 
@@ -155,6 +160,19 @@ body h2{
     border-radius: 8px; /* Bordas arredondadas */
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
   }
+  /* Container geral da página */
+.container_signup {
+  width: 400px;
+  margin: 2rem auto; /* Centraliza o conteúdo */
+  padding: 2rem; /* Espaçamento interno */
+  border-color: #f9c739;
+  border-width: 5px;
+  border-style:solid ;
+  background-image: url("../../assets/AgendaPAE.jpg");
+  /* background-color: #F4F7F6; Cor de fundo suave */
+  border-radius: 8px; /* Bordas arredondadas */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+}
 
   /* Título da seção */
 h3 {
@@ -169,6 +187,11 @@ h3 {
 /* Tabela */
 .table {
     width: 100%;
+    margin-top: 2rem; /* Espaçamento superior */
+    border-collapse: collapse; /* Remove espaçamento entre as células */
+  }
+  .table_signup {
+    width: 300px;
     margin-top: 2rem; /* Espaçamento superior */
     border-collapse: collapse; /* Remove espaçamento entre as células */
   }
@@ -188,6 +211,25 @@ h3 {
   }
   
   .table tbody tr:hover {
+    transition: background-color 0.3s ease;
+    background-color: #eee3d244; /* Cor de fundo suave ao passar o mouse */
+  }
+  /* Estilo das células da tabela */
+  .table_signup th, .table_signup td {
+    padding: 1rem;
+    text-align: left;
+    font-size: 1rem;
+    border-bottom: 2px solid #e0e0e0; /* Linha de separação suave entre as linhas */
+  }
+  
+  .table_signup th {
+    background-color: #3D5045; /* Cor do cabeçalho */
+    color: #FFFFFF; /* Cor do texto no cabeçalho */
+    font-weight: 400;
+    
+  }
+  
+  .table_signup tbody tr:hover {
     transition: background-color 0.3s ease;
     background-color: #eee3d244; /* Cor de fundo suave ao passar o mouse */
   }
