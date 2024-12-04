@@ -307,10 +307,10 @@ h3 {
   }
   
   /* Estilo do formulário */
-  form {
+ .container form{
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* Define 3 colunas de tamanho igual */
-    gap: 20px; /* Espaço entre os campos */
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 20px; 
   }
   
   /* Estilo dos campos de entrada */
