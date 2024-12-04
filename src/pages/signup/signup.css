@@ -1,36 +1,62 @@
 #nav-signup{
     display: flex;
-    height: 100px;
+    height: 100%;
     width: 100%;
+    background-color: #F4F7F6;
 }
-
+.main{
+  padding: 10px;
+}
 #header{
     float: left;
     width: 1000px;
-    height: 400px;
+    max-height: 400px;
 }
-
+/* 
 body {
-    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif; /* Fonte padrão */
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif; 
     margin: 0;
     padding: 0;
-    background-color: #eee3d2; /* Fundo suave */
-    color: #333333; /* Cor de texto padrão */
-  }
+    background-color: #F4F7F6;
+    color: #FFFFFF; 
+    font-weight: 500;
+  } */
+body h2{
+  color: #ffffff;
+}
+
 
 .body{
-    background-color: #3D5045;
+    background-color: #eee3d2;
+    padding: 10px;
+    margin: 15px;
+    width: 100%;
+    border-radius: 9px;
+}
+.body_users{
+  background-color: #eee3d2;
+  padding: 20px;
+  margin: 15px;
+  width: 100%;
+  border-radius: 9px;
+  min-height: 710px;
+  max-height: 100%;
 }
 
   /* Container principal da navegação */
 .d-flex {
-    display: flex;
-    align-items: center;
-    justify-content: start;
+  display: flex;
     background-color: #5C7362; /* Fundo compartilhado */
     padding: 1rem 2rem; /* Espaçamento interno */
     box-shadow: -10px 10px 10px rgba(0, 0, 0, 0.1); /* Sombra sutil */
     width: 100%;
+}
+.nav_flex{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: start;
+  width: 58%;
 }
 
 /* Links da navegação */
@@ -40,13 +66,12 @@ body {
   margin: 0 1.5rem; /* Espaçamento entre os links */
   font-size: 1.1rem;
   font-weight: bold;
-  color: #FFFFFF; /* Texto branco */
+  color: #F4F7F6; /* Texto branco */
   text-decoration: none; /* Remove sublinhado */
   padding: 0.5rem 0; /* Espaçamento interno */
   position: relative; /* Necessário para o efeito inovador */
   transition: color 0.3s ease, transform 0.2s ease;
 }
-
 /* Efeito de destaque ao passar o mouse */
 .navbar-brand:hover,
 .nav-link:hover {
@@ -89,12 +114,44 @@ body {
   transform: scaleX(0); /* Contraída */
   transition: transform 0.3s ease;
 }
+/* BARRA DE PESQUISA */
+.pesquisa{
+  display: flex;
+  justify-content: end;
+  float: right;
+  width: 45%;
+}
+.pesquisa input{
+  margin-right: 10px;
+  padding: 5px;
+  border-radius: 4px;
+}
+
+.pesquisa button{
+  padding: 5px;
+  font-size: 15px;
+  color: #fff;
+  background-color: #aa8724;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+}
+
+.pesquisa button:hover{
+  background-color: #fff;
+  color: #aa8724;
+}
+
 /* Container geral da página */
 .container {
     max-width: 1200px;
     margin: 2rem auto; /* Centraliza o conteúdo */
     padding: 2rem; /* Espaçamento interno */
-    background-color: #F4F7F6; /* Cor de fundo suave */
+    border-color: #f9c739;
+    border-width: 5px;
+    border-style:solid ;
+    background-image: url("../../assets/AgendaPAE.jpg");
+    /* background-color: #F4F7F6; Cor de fundo suave */
     border-radius: 8px; /* Bordas arredondadas */
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
   }
@@ -102,10 +159,10 @@ body {
   /* Título da seção */
 h3 {
     font-size: 1.8rem;
-    font-weight: bold;
-    color: #5C7362; /* Cor verde da navegação */
+    /* font-weight: bold; */
+    color: #e0e0e0; /* Cor verde da navegação */
     margin-bottom: 1.5rem; /* Espaçamento abaixo do título */
-    border-bottom: 2px solid #5C7362; /* Linha de separação abaixo do título */
+    border-bottom: 2px solid #e0e0e0; /* Linha de separação abaixo do título */
     padding-bottom: 0.5rem;
   }
 
@@ -121,33 +178,69 @@ h3 {
     padding: 1rem;
     text-align: left;
     font-size: 1rem;
-    border-bottom: 1px solid #e0e0e0; /* Linha de separação suave entre as linhas */
+    border-bottom: 2px solid #e0e0e0; /* Linha de separação suave entre as linhas */
   }
   
   .table th {
-    background-color: #5C7362; /* Cor do cabeçalho */
+    background-color: #3D5045; /* Cor do cabeçalho */
     color: #FFFFFF; /* Cor do texto no cabeçalho */
-    font-weight: bold;
+    font-weight: 400;
   }
   
   .table tbody tr:hover {
-    background-color: #A8D5BA; /* Cor de fundo suave ao passar o mouse */
-    cursor: pointer; /* Indica que a linha é clicável */
+    transition: background-color 0.3s ease;
+    background-color: #eee3d244; /* Cor de fundo suave ao passar o mouse */
+  }
+
+  .actions{
+    display: flex;
+    flex-direction: row;
+    gap: 10px
   }
   
   /* Estilo da ação do usuário */
-  .table td .UserAction {
-    background-color: #5C7362; /* Cor de fundo dos botões de ação */
+  .bottom_read {
+    background-color: #3D5045; /* Cor de fundo dos botões de ação */
     color: #FFFFFF; /* Cor do texto */
     padding: 0.5rem 1rem;
     border-radius: 4px; /* Bordas arredondadas */
     text-decoration: none; /* Remove sublinhado */
     transition: background-color 0.3s ease;
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif; /* Fonte padrão */
+  }
+  .bottom_read:hover {
+  background-color: #54946a; /* Tom mais claro */
+}
+
+  .bottom_update {
+    background-color: #aa8724; /* Cor de fundo dos botões de ação */
+    color: #FFFFFF; /* Cor do texto */
+    padding: 0.5rem 1rem;
+    border-radius: 4px; /* Bordas arredondadas */
+    text-decoration: none; /* Remove sublinhado */
+    transition: background-color 0.3s ease;
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif; /* Fonte padrão */
+  }
+  .bottom_update:hover {
+    background-color: #ebc459; /* Tom mais claro */
+  }
+
+  .bottom_delete {
+    background-color: #7d1900; /* Cor de fundo dos botões de ação */
+    color: #FFFFFF; /* Cor do texto */
+    padding: 0.5rem 1rem;
+    border-radius: 4px; /* Bordas arredondadas */
+    text-decoration: none; /* Remove sublinhado */
+    transition: background-color 0.3s ease;
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif; /* Fonte padrão */
+  }
+  .bottom_delete:hover {
+    background-color: #e13434; /* Tom mais claro */
   }
   
   /* Efeito de hover para a ação do usuário */
   .table td .UserAction:hover {
-    background-color: #A8D5BA; /* Cor de fundo ao passar o mouse */
+    background-color: #f9c739; /* Cor de fundo ao passar o mouse */
   }
 
 
@@ -158,7 +251,6 @@ h3 {
     background-color: #f5efe3; /* Cor de fundo bege */
     border-radius: 10px;
     padding: 20px;
-    max-width: 900px;
     margin: auto;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
@@ -166,7 +258,7 @@ h3 {
   /* Título */
   .container-create h3 {
     font-family: Arial, sans-serif;
-    color: #4f5d38; /* Cor verde-escuro */
+    color: #FFFFFF; /* Cor verde-escuro */
     text-align: center;
     width: 100%;
     margin-bottom: 20px;
@@ -186,8 +278,8 @@ h3 {
   }
   
   .form-label {
-    font-size: 14px;
-    color: #4f5d38;
+    font-size: 17px;
+    color: #FFFFFF;
     font-weight: bold;
     margin-bottom: 5px;
   }
@@ -196,15 +288,15 @@ h3 {
     padding: 10px;
     border: 1px solid #e0e0e0;
     border-radius: 5px;
-    background-color: #f8c849; /* Cor amarela */
-    color: #4f5d38;
-    font-size: 14px;
+    background-color: #3D5045; /* Cor amarela */
+    color: #FFFFFF;
+    font-size: 17px;
   }
   
   .form-control:focus, .form-select:focus {
     outline: none;
-    border-color: #c8a742;
-    box-shadow: 0 0 5px rgba(200, 167, 66, 0.5);
+    border-color: #5aff83;
+    box-shadow: 0 0 5px rgba(71, 144, 75, 0.447);
   }
   
   /* Botões */
@@ -215,17 +307,35 @@ h3 {
     font-size: 14px;
     font-weight: bold;
     cursor: pointer;
+    margin-bottom: 10px;
   }
   
   .btn-outline-success {
-    background-color: #4f5d38;
-    color: #fff;
-    margin-right: 10px;
+    background-color: #3D5045;
+    color: #F4F7F6;
+    transition: background-color 0.3s ease;
+  }
+  .btn-outline-success:hover{
+    background-color: #54946a;
   }
   
   .btn-outline-info {
-    background-color: #ccc;
-    color: #4f5d38;
+    background-color: #aa8724;
+    color: #ffffff;
+    text-decoration: none;
+    align-items: center;
+    transition: background-color 0.3s ease;
+  }
+  .btn-outline-info:hover {
+    background-color: #ebc459;
+  }
+  .btn-outline-danger{
+    background-color: #7d1900;
+    color: #F4F7F6;
+    transition: background-color 0.3s ease;
+  }
+  .btn-outline-danger:hover{
+    background-color: #e13434;
   }
   
   .btn:hover {
@@ -236,6 +346,16 @@ h3 {
   .form-group.p-2 {
     grid-column: span 3; /* Ocupa toda a largura da grid */
     text-align: center;
+  }
+
+  .alert-success, .alert-danger{
+    color: #3D5045;
+    margin: 10px 5px 0;
+    text-decoration: none;
+  }
+  .alert-link{
+    color: #aa8724;
+    text-decoration: none;
   }
   
   

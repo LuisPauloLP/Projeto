@@ -4,6 +4,7 @@ import ProfessionalsAction from '@/components/signup/ProfessionalsAction'
 import { Helmet } from 'react-helmet'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
+import Header from '@/components/header/header'
 import MenuProfessionals from '@/components/signup/MenuProfessionals'
 
 
@@ -13,33 +14,37 @@ export default function professionals() {
   
   const [professionals, setProfessionals] = useState([]); 
   
-  useEffect(() => {
-    const getAllProfessionals = async () => {
-      try {
+  // Função para buscar todos os profissionais
+  const getAllProfessionals = async () => {
+    try {
         const response = await Axios.get(API_URL);
         setProfessionals(response.data);
-      } catch (error) {
+    } catch (error) {
         console.error('Erro ao buscar os profissionais:', error);
-      }
-    };
+    }
+};
 
-    getAllProfessionals();
+// Função chamada pelo MenuProfessionals para atualizar a lista de profissionais
+const handleSearchResults = (searchResults) => {
+    setProfessionals(searchResults.length > 0 ? searchResults : []);
+};
 
-  }, []);
+useEffect(() => {
+    getAllProfessionals(); // Carrega todos os usuários ao carregar a página
+}, []);
+
 
   return (
     <>
       <Helmet>
-        <title>APP-BC</title>
+        <title>Cadastros</title>
         <meta name="description" content="Cadastro de profissionais e alunos" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Helmet>
-      <div>
-        <MenuProfessionals />
-      </div>
-
-  
-      <div>
+      <div id="nav-signup">
+      <Header />
+      <div className="body_users">
+        <MenuProfessionals onSearch={handleSearchResults}/>
         <div className="container">
         <div className="row border-bottom">
         <h3> Lista de Profissionais </h3>
@@ -73,8 +78,8 @@ export default function professionals() {
         </div>
         </div>
       </div>  
+      </div>
   </>
   )
 }
-
 

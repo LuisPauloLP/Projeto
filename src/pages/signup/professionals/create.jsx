@@ -59,20 +59,19 @@ export default function createprofessional() {
   return (
     <>
       <Helmet>
-        <title>APP-BC</title>
+        <title>Cadastros</title>
         <meta name="description" content="Cadastro de profissionais e alunos" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Helmet>
-      <div>
-        <MenuProfessionals />
+      <div id="nav-signup">
+  
+      <div className="body_users">
+      <MenuProfessionals />
         { 
           message.status==="" ? "" : 
           message.status==="ok" ? <div className='alert alert-success' role='alert'> { message.message } <Link className='alert-link' to='/signup/professionals'>Voltar</Link></div> : 
           <div className='alert alert-danger' role='alert'> { message.message } <Link className='alert-link' to='/signup/professionals'>Voltar</Link></div>
         }
-      </div>
-  
-      <div>
         <div className="container">
             <div className="row border-bottom">
                 <h3> Cadastro de Profissional </h3>
@@ -155,9 +154,9 @@ export default function createprofessional() {
                 </form>
             </div>
         </div>
+      </div>
       </div>  
   </>
   )
 }
-
 

@@ -1,3 +1,4 @@
+
 import MenuUsers from '@/components/signup/MenuUsers';
 import React from 'react';
 import { Helmet } from 'react-helmet';
@@ -14,6 +15,7 @@ export default function deleteuser() {
   const [user, setUser] = useState({
     author_id: "",
     author_name: "",
+    author_email: "",
     author_user: "",
     author_pwd: "",
     author_level: "",
@@ -73,20 +75,20 @@ export default function deleteuser() {
   return (
     <>
       <Helmet>
-        <title>APP-BC</title>
+        <title>Cadastros</title>
         <meta name="description" content="Cadastro de profissionais e alunos" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Helmet>
-      <div>
-        <MenuUsers />
-        { 
+      <div id="nav-signup">
+  
+      <div className="body_users">
+      <MenuUsers />
+      { 
           message.status==="" ? "" : 
           message.status==="ok" ? <div className='alert alert-success' role='alert'> { message.message } <Link className='alert-link' to='/signup/users'>Voltar</Link></div> : 
           <div className='alert alert-danger' role='alert'> { message.message } <Link className='alert-link' to='/signup/users'>Voltar</Link></div>
         }
-      </div>
   
-      <div>
         <div className="container">
             <div className="row border-bottom">
                 <h3> Edição de Usuário </h3>
@@ -95,6 +97,10 @@ export default function deleteuser() {
                 <div className="form-group">
                     <label className="form-label" htmlFor="author_name">Nome</label>
                     <input type="text" id="author_name" name="author_name" className="form-control" value={user.author_name} readOnly/>
+                </div>
+                <div className="form-group">
+                    <label className="form-label" htmlFor="author_email">E-mail</label>
+                    <input type="text" id="author_email" name="author_email" className="form-control" value={user.author_email} readOnly />
                 </div>
                 <div className="form-group">
                     <label className="form-label" htmlFor="author_user">Usuário</label>
@@ -135,7 +141,8 @@ export default function deleteuser() {
                 </form>
             </div>
         </div>
-      </div>  
+      </div> 
+      </div> 
   </>
   )
 }

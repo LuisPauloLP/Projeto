@@ -52,6 +52,12 @@ export default function updatestudent() {
         const getStudent = async () => {
           try {
             const response = await Axios.get(API_URL + pid);
+            const fetchedStudent = response.data.foundedStudent;
+
+            if (fetchedStudent.student_date_of_born) {
+              fetchedStudent.student_date_of_born = new Date(fetchedStudent.student_date_of_born).toISOString().split("T")[0];
+            }
+
             setMensage( { message: response.data.message , status: "ok"} ); 
             setStudent( response.data.foundedStudent );
           } catch (error) {
@@ -74,7 +80,27 @@ export default function updatestudent() {
 
       const handleUpdateStudent = async () => {
         try {
-          const response = await Axios.put(API_URL + pid, { student });
+
+          const studentData = {
+            student_id: student.student_id,
+            student_name: student.student_name,
+            student_surname: student.student_surname,
+            student_cpf: student.student_cpf,
+            student_email: student.student_email,
+            student_date_of_born: student.student_date_of_born,
+            student_phone: student.student_phone,
+            student_cep: student.student_cep,
+            student_logradouro: student.student_logradouro,
+            student_bairro: student.student_bairro,
+            student_city: student.student_city,
+            student_UF: student.student_UF,
+            student_user: student.student_user,
+            student_status: student.student_status,
+            student_create_date: student.student_create_date
+          };
+
+
+          const response = await Axios.put(API_URL + pid, { student: studentData });
           setMensage( { message: response.data.message , status: "ok"} );      
         } catch (error) {
           console.error('Erro ao alterar o Estudante:', error);
@@ -87,20 +113,19 @@ export default function updatestudent() {
   return (
     <>
       <Helmet>
-        <title>APP-BC</title>
+        <title>Cadastros</title>
         <meta name="description" content="Cadastro" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Helmet>
-      <div>
-        <MenuStudents />
+      <div id="nav-signup">
+        
+      <div className="body_users">
+      <MenuStudents />
         { 
           message.status==="" ? "" : 
           message.status==="ok" ? <div className='alert alert-success' role='alert'> { message.message } <Link className='alert-link' to='/signup/students'>Voltar</Link></div> : 
           <div className='alert alert-danger' role='alert'> { message.message } <Link className='alert-link' to='/signup/students'>Voltar</Link></div>
         }
-      </div>
-  
-      <div>
         <div className="container"> 
             <div className="row border-bottom">
                 <h3> Edição de Estudante </h3>
@@ -175,9 +200,11 @@ export default function updatestudent() {
                 </form>
             </div>
         </div>
-      </div>  
+      </div> 
+      
+      </div>
+   
   </>
   )
 }
-
 

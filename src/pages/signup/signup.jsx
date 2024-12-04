@@ -13,14 +13,12 @@ export default function signup() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Helmet>
       <div id="nav-signup">
-      <Header />
-      <div className="body">
-      <MenuSignup />
-      </div>
-      
+        <Header />
+        <div className="body">
+          <MenuSignup />
+        </div>
       </div>
   </>
   )
 }
-
 

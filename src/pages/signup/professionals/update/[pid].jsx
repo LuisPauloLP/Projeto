@@ -1,3 +1,4 @@
+
 import React from 'react';
 import Axios from 'axios';
 import MenuProfessionals from '@/components/signup/MenuProfessionals';
@@ -55,6 +56,12 @@ export default function updateprofessional() {
         const getProfessional = async () => {
           try {
             const response = await Axios.get(API_URL + pid);
+            const fetchedProfessional = response.data.foundedProfessional;
+
+            if (fetchedProfessional.professional_date_of_born) {
+              fetchedProfessional.professional_date_of_born = new Date(fetchedProfessional.professional_date_of_born).toISOString().split("T")[0];
+            }
+
             setMensage( { message: response.data.message , status: "ok"} ); 
             setProfessional( response.data.foundedProfessional );
           } catch (error) {
@@ -77,7 +84,29 @@ export default function updateprofessional() {
 
       const handleUpdateProfessional = async () => {
         try {
-          const response = await Axios.put(API_URL + pid, { professional });
+          
+          const professionalData = {
+            professional_id: professional.professional_id,
+            professional_name: professional.professional_name,
+            professional_surname: professional.professional_surname,
+            professional_cpf: professional.professional_cpf,
+            professional_email: professional.professional_email,
+            professional_date_of_born: professional.professional_date_of_born,
+            professional_phone: professional.professional_phone,
+            professional_cep: professional.professional_cep,
+            professional_logradouro: professional.professional_logradouro,
+            professional_bairro: professional.professional_bairro,
+            professional_city: professional.professional_city,
+            professional_UF: professional.professional_UF,
+            professional_cargo: professional.professional_cargo,
+            professional_entryTime: professional.professional_entryTime,
+            professional_exitTime: professional.professional_exitTime,
+            professional_user: professional.professional_user,
+            professional_status: professional.professional_status,
+            professional_create_date: professional.professional_create_date
+          };
+
+          const response = await Axios.put(API_URL + pid, { professional: professionalData });
           setMensage( { message: response.data.message , status: "ok"} );      
         } catch (error) {
           console.error('Erro ao alterar o Profissional:', error);
@@ -86,24 +115,22 @@ export default function updateprofessional() {
       };
 
 
-
   return (
     <>
       <Helmet>
-        <title>APP-BC</title>
+        <title>Cadastros</title>
         <meta name="description" content="Cadastro" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Helmet>
-      <div>
-        <MenuProfessionals />
+      <div id="nav-signup">
+  
+      <div className="body_users">
+      <MenuProfessionals />
         { 
           message.status==="" ? "" : 
           message.status==="ok" ? <div className='alert alert-success' role='alert'> { message.message } <Link className='alert-link' to='/signup/professionals'>Voltar</Link></div> : 
           <div className='alert alert-danger' role='alert'> { message.message } <Link className='alert-link' to='/signup/professionals'>Voltar</Link></div>
         }
-      </div>
-  
-      <div>
         <div className="container">
             <div className="row border-bottom">
                 <h3> Edição de Profissional </h3>
@@ -191,6 +218,7 @@ export default function updateprofessional() {
             </div>
         </div>
       </div>  
+      </div>
   </>
   )
 }

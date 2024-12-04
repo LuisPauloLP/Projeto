@@ -45,8 +45,14 @@ export default function readstudent() {
         const getStudent = async () => {
           try {
             const response = await Axios.get(API_URL + pid);
+            const fetchedStudent = response.data.foundedStudent;
+
+            if (fetchedStudent.student_date_of_born) {
+              fetchedStudent.student_date_of_born = new Date(fetchedStudent.student_date_of_born).toISOString().split("T")[0];
+            }
+
             setMensage( { message: response.data.message , status: "ok"} ); 
-            setStudent( response.data.foundedStudent );
+            setStudent( fetchedStudent );
           } catch (error) {
             console.error('Erro ao buscar os estudantes:', error);
             setMensage( { message: "Erro ao buscar os Estudantes!", status: "error"} );
@@ -55,27 +61,26 @@ export default function readstudent() {
     
         getStudent();
     
-      }, []);
+      }, [pid]);
 
 
 
   return (
     <>
       <Helmet>
-        <title>APP-BC</title>
+        <title>Cadastros</title>
         <meta name="description" content="Cadastro" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Helmet>
-      <div>
-        <MenuStudents />
+      <div id="nav-signup">
+  
+      <div className="body_users">
+      <MenuStudents />
         { 
           message.status==="" ? "" : 
           message.status==="ok" ? "" : 
           <div className='alert alert-danger' role='alert'> { message.message } <Link className='alert-link' to='/signup/students'>Voltar</Link></div>
         }
-      </div>
-  
-      <div>
         <div className="container">
             <div className="row border-bottom">
                 <h3> Detalhes do Estudante </h3>
@@ -150,9 +155,9 @@ export default function readstudent() {
                 </form>
             </div>
         </div>
-      </div>  
+      </div> 
+      </div> 
   </>
   )
 }
-
 

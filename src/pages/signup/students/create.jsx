@@ -56,21 +56,20 @@ export default function createstudent() {
   return (
     <>
       <Helmet>
-        <title>APP-BC</title>
+        <title>Cadastros</title>
         <meta name="description" content="Cadastro de profissionais e alunos" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Helmet>
-      <div>
-        <MenuStudents />
+      <div id="nav-signup">
+  
+      <div className="body_users">
+      <MenuStudents />
         { 
           message.status==="" ? "" : 
           message.status==="ok" ? <div className='alert alert-success' role='alert'> { message.message } <Link className='alert-link' to='/signup/students'>Voltar</Link></div> : 
           <div className='alert alert-danger' role='alert'> { message.message } <Link className='alert-link' to='/signup/students'>Voltar</Link></div>
         }
-      </div>
-  
-      <div className="body">
-        <div className="container-create">
+        <div className="container">
             <div className="row border-bottom">
                 <h3> Cadastro de Estudante </h3>
             
@@ -141,8 +140,8 @@ export default function createstudent() {
             </div>
         </div>
       </div>  
+      </div>
   </>
   )
 }
-
 

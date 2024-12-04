@@ -48,8 +48,13 @@ export default function readprofessional() {
         const getProfessional = async () => {
           try {
             const response = await Axios.get(API_URL + pid);
+            const fetchedProfessional = response.data.foundedProfessional;
+
+        if (fetchedProfessional.professional_date_of_born) {
+          fetchedProfessional.professional_date_of_born = new Date(fetchedProfessional.professional_date_of_born).toISOString().split("T")[0];
+        }
             setMensage( { message: response.data.message , status: "ok"} ); 
-            setProfessional( response.data.foundedProfessional );
+            setProfessional( fetchedProfessional );
           } catch (error) {
             console.error('Erro ao buscar os profissionais:', error);
             setMensage( { message: "Erro ao buscar os Profissionais!", status: "error"} );
@@ -58,27 +63,26 @@ export default function readprofessional() {
     
         getProfessional();
     
-      }, []);
+      }, [pid]);
 
 
 
   return (
     <>
       <Helmet>
-        <title>APP-BC</title>
+        <title>Cadastros</title>
         <meta name="description" content="Cadastro" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Helmet>
-      <div>
-        <MenuProfessionals />
+      <div id="nav-signup">
+  
+      <div className="body_users">
+      <MenuProfessionals />
         { 
           message.status==="" ? "" : 
           message.status==="ok" ? "" : 
           <div className='alert alert-danger' role='alert'> { message.message } <Link className='alert-link' to='/signup/professionals'>Voltar</Link></div>
         }
-      </div>
-  
-      <div>
         <div className="container">
             <div className="row border-bottom">
                 <h3> Detalhes do Profissional </h3>
@@ -166,8 +170,8 @@ export default function readprofessional() {
             </div>
         </div>
       </div>  
+      </div>
   </>
   )
 }
-
 

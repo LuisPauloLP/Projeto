@@ -44,8 +44,14 @@ export default function deletestudent() {
           const getStudent = async () => {
             try {
               const response = await Axios.get(API_URL + pid);
+              const fetchedStudent = response.data.foundedStudent;
+
+              if (fetchedStudent.student_date_of_born) {
+                fetchedStudent.student_date_of_born = new Date(fetchedStudent.student_date_of_born).toISOString().split("T")[0];
+              }
+
               setMensage( { message: response.data.message , status: "ok"} ); 
-              setUser( response.data.foundedStudent );
+              setStudent( fetchedStudent );
             } catch (error) {
               console.error('Erro ao buscar os estudantes:', error);
               setMensage( { message: "Erro ao buscar os Estudantes!", status: "error"} );
@@ -54,7 +60,7 @@ export default function deletestudent() {
 
           getStudent();
 
-        }, []);
+        }, [pid]);
       
         const handleDeleteStudent = async () => {
           try {
@@ -73,20 +79,19 @@ export default function deletestudent() {
   return (
     <>
       <Helmet>
-        <title>APP-BC</title>
+        <title>Cadastros</title>
         <meta name="description" content="Cadastro de profissionais e alunos" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Helmet>
-      <div>
-        <MenuStudents />
+      <div id="nav-signup">
+       
+      <div className="body_users">
+      <MenuStudents />
         { 
           message.status==="" ? "" : 
           message.status==="ok" ? <div className='alert alert-success' role='alert'> { message.message } <Link className='alert-link' to='/signup/students'>Voltar</Link></div> : 
           <div className='alert alert-danger' role='alert'> { message.message } <Link className='alert-link' to='/signup/students'>Voltar</Link></div>
         }
-      </div>
-  
-      <div>
         <div className="container">
             <div className="row border-bottom">
                 <h3> Edição de Estudante </h3>
@@ -161,9 +166,11 @@ export default function deletestudent() {
                 </form>
             </div>
         </div>
-      </div>  
+      </div> 
+       
+      </div>
+   
   </>
   )
 }
-
 
