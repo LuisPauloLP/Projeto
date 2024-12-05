@@ -1,4 +1,6 @@
-CREATE TABLE users (
+CREATE SCHEMA apae;
+
+CREATE TABLE apae.users (
     id SERIAL PRIMARY KEY,
     author_name VARCHAR(255) NOT NULL,
     author_email VARCHAR(255) UNIQUE NOT NULL,
@@ -9,7 +11,7 @@ CREATE TABLE users (
     author_create_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE students (
+CREATE TABLE apae.students (
     id SERIAL PRIMARY KEY,
     student_name VARCHAR(255) NOT NULL,
     student_surname VARCHAR(255),
@@ -27,7 +29,7 @@ CREATE TABLE students (
     student_create_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE professionals (
+CREATE TABLE apae.professionals (
     id SERIAL PRIMARY KEY,
     professional_name VARCHAR(255) NOT NULL,
     professional_surname VARCHAR(255),
@@ -48,7 +50,7 @@ CREATE TABLE professionals (
     professional_create_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE appointments (
+CREATE TABLE apae.appointments (
     id SERIAL PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
     start TIMESTAMP NOT NULL,
