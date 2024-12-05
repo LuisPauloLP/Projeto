@@ -1,118 +1,67 @@
 const express = require('express');
 const router = express.Router();
 
-//MONGODB
-const mongoose = require('mongoose');
-mongoose.connect('mongodb://127.0.0.1:27017/bc', { useNewUrlParser: true, useUnifiedTopology: true });
-mongoose.connection.on('connected', () => {
-  console.log('MongoDB conectado');
-});
-
-const studentsSchema = new mongoose.Schema({
-    student_name: String,
-    student_surname: String,
-    student_cpf: Number,
-    student_email: String,
-    student_date_of_born:{ type: Date, required: true },
-    student_phone: Number,
-    student_cep: Number,
-    student_logradouro: String,
-    student_bairro: String,
-    student_city: String,
-    student_UF: String,
-    student_user: String,
-    student_status: Boolean,
-    student_create_date: { type: Date, default: Date.now }
-  });
-
-const Student = mongoose.model('Student', studentsSchema); //MONGODB
-
-// Buscar estudantes por nome
 router.get('/search', async (req, res) => {
-  const nome = req.query.name; // O nome será passado como parâmetro na query string
+  const nome = req.query.name;
   try {
-    const students = await Student.find({ student_name: { $regex: nome, $options: 'i' } }); // Busca por nome parcial, case insensitive
-    res.json(students);
+    const result = await req.pool.query('SELECT * FROM apae.students WHERE student_name ILIKE $1', [`%${nome}%`]);
+    res.json(result.rows);
   } catch (err) {
     res.status(500).json({ message: 'Erro ao buscar estudantes.', error: err.message });
   }
 });
 
-// Retornar todos os estudantes
-// GET "/students"
 router.get('/', async (req, res) => {
   try {
-    const foundedStudent = await Student.find();
-    console.log('Objetos encontrados com sucesso!');
-    res.status(200).json(foundedStudent);
+    const result = await req.pool.query('SELECT * FROM apae.students');
+    res.status(200).json(result.rows);
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
 });
 
-// Retornar um estudante específico
-// GET /students/:pid
 router.get('/:pid', async (req, res) => {
   const pid = req.params.pid;
   try {
-    const foundedStudent = await Student.findById( pid );
-    console.log('Objeto encontrado com sucesso!');
-    res.json({ message: 'Estudante encontrado com sucesso!', foundedStudent });
+    const result = await req.pool.query('SELECT * FROM apae.students WHERE id = $1', [pid]);
+    res.json({ message: 'Estudante encontrado com sucesso!', student: result.rows[0] });
   } catch (err) {
-    res.status(400).json({ message: err.message });
+    res.status(500).json({ message: 'Erro ao buscar estudante.', error: err.message });
   }
 });
 
-// Inserir um novo estudante
-// POST "/students" BODY { ... }
 router.post('/', async (req, res) => {
   const student = req.body.student;
   try {
-    const newStudent = await Student.create(student);
-    console.log('Objeto salvo com sucesso!');
-    res.json({ message: 'Estudante salvo com sucesso!', newStudent });
+    const result = await req.pool.query(
+      'INSERT INTO apae.students (student_name, student_surname, student_cpf, student_email, student_date_of_born, student_phone, student_cep, student_logradouro, student_bairro, student_city, student_UF, student_user, student_status) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING *',
+      [student.student_name, student.student_surname, student.student_cpf, student.student_email, student.student_date_of_born, student.student_phone, student.student_cep, student.student_logradouro, student.student_bairro, student.student_city, student.student_UF, student.student_user, student.student_status]
+    );
+    res.json({ message: 'Estudante salvo com sucesso!', newStudent: result.rows[0] });
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
 });
 
-// Alterar um estudante
-// PUT "/students/:id" BODY { ... }
 router.put('/:pid', async (req, res) => {
   const pid = req.params.pid;
-  const newStudent = req.body.student;
-  console.log(newStudent);
+  const student = req.body.student;
   try {
-    const updatedStudent = await Student.findByIdAndUpdate(pid, 
-      { 
-        student_name: newStudent.student_name, 
-        student_surname: newStudent.student_surname,
-        student_cpf: newStudent.student_cpf,
-        student_email: newStudent.student_email,
-        student_date_of_born: newStudent.student_date_of_born,
-        student_phone: newStudent.student_phone,
-        student_cep: newStudent.student_cep,
-        student_logradouro: newStudent.student_logradouro,
-        student_bairro: newStudent.student_bairro,
-        student_city: newStudent.student_city,
-        student_UF: newStudent.student_UF,
-        student_status: newStudent.student_status,
-      }, { new: true });
-    console.log('Objeto Atualizado:', updatedStudent);
-    res.json({ message: 'Estudante alterado com sucesso!', updatedStudent });
+    const result = await req.pool.query(
+      'UPDATE apae.students SET student_name = $1, student_surname = $2, student_cpf = $3, student_email = $4, student_date_of_born = $5, student_phone = $6, student_cep = $7, student_logradouro = $8, student_bairro = $9, student_city = $10, student_UF = $11, student_user = $12, student_status = $13 WHERE id = $14 RETURNING *',
+      [student.student_name, student.student_surname, student.student_cpf, student.student_email, student.student_date_of_born, student.student_phone, student.student_cep, student.student_logradouro, student.student_bairro, student.student_city, student.student_UF, student.student_user, student.student_status, pid]
+    );
+    res.json({ message: 'Estudante alterado com sucesso!', updatedStudent: result.rows[0] });
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
 });
 
-// Deletar um estudante
-// DELETE "/students/:id"
 router.delete('/:pid', async (req, res) => {
   const pid = req.params.pid;
   try {
-    const deletedStudent = await Student.findByIdAndDelete(pid);
-    console.log('Objeto deletado:', deletedStudent);
-    res.json({ message: 'Estudante deletado com sucesso!', deletedStudent });
+    const result = await req.pool.query('DELETE FROM apae.students WHERE id = $1 RETURNING *', [pid]);
+    res.json({ message: 'Estudante deletado com sucesso!', deletedStudent: result.rows[0] });
   } catch (err) {
     res.status(400).json({ message: err.message });
   }

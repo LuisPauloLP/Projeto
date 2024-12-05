@@ -1,100 +1,70 @@
 const express = require('express');
 const router = express.Router();
-const mongoose = require('mongoose');
 
-// Conexão MongoDB
-mongoose.connect('mongodb://127.0.0.1:27017/bc', { useNewUrlParser: true, useUnifiedTopology: true });
-mongoose.connection.on('connected', () => {
-  console.log('MongoDB conectado');
-});
-
-// Schema para agendamentos
-const appointmentSchema = new mongoose.Schema({
-  title: String,
-  start: Date,
-  end: Date,
-  organizer: String,
-  participants: String,
-  desc: String,
-  color: String,
-  status: { type: String, enum: ['cancelado', 'agendado', 'confirmado'], default: 'agendado' },
-});
-
-const Appointment = mongoose.model('Appointment', appointmentSchema);
-
-// Buscar agendamentos por participante
 router.get('/search', async (req, res) => {
   const nome = req.query.name;
   try {
-    const appointments = await Appointment.find({ participants: { $regex: nome, $options: 'i' } });
-    res.json(appointments);
+    const result = await req.pool.query('SELECT * FROM apae.appointments WHERE participants ILIKE $1', [`%${nome}%`]);
+    res.json(result.rows);
   } catch (err) {
     res.status(500).json({ message: 'Erro ao buscar agendamentos.', error: err.message });
   }
 });
 
-// Listar todos os agendamentos
 router.get('/', async (req, res) => {
   try {
-    const appointments = await Appointment.find();
-    res.json(appointments);
+    const result = await req.pool.query('SELECT * FROM apae.appointments');
+    res.status(200).json(result.rows);
   } catch (err) {
-    res.status(500).json({ message: 'Erro ao listar agendamentos.', error: err.message });
+    res.status(400).json({ message: err.message });
   }
 });
 
-// Criar um novo agendamento
-router.post('/', async (req, res) => {
-  const newAppointment = req.body;
+router.get('/:pid', async (req, res) => {
+  const pid = req.params.pid;
   try {
-    const createdAppointment = await Appointment.create(newAppointment);
-    res.status(201).json({ message: 'Agendamento criado com sucesso!', createdAppointment });
+    const result = await req.pool.query('SELECT * FROM apae.appointments WHERE id = $1', [pid]);
+    res.json({ message: 'Agendamento encontrado com sucesso!', appointment: result.rows[0] });
   } catch (err) {
-    res.status(400).json({ message: 'Erro ao criar agendamento.', error: err.message });
-  }
-});
-
-// Atualizar um agendamento
-router.put('/:id', async (req, res) => {
-  const { id } = req.params;
-  const updatedAppointment = req.body;
-  try {
-    const appointment = await Appointment.findByIdAndUpdate(id, updatedAppointment, { new: true });
-    res.json({ message: 'Agendamento atualizado com sucesso!', appointment });
-  } catch (err) {
-    res.status(400).json({ message: 'Erro ao atualizar agendamento.', error: err.message });
+    res.status(500).json({ message: 'Erro ao buscar agendamento.', error: err.message });
   }
 });
 
 router.post('/', async (req, res) => {
-  const { participants, organizer } = req.body;
-
+  const appointment = req.body;
   try {
-    const aluno = await User.findOne({ author_name: participants });
-    const profissional = await User.findOne({ author_name: organizer });
-
-    if (!aluno || !profissional) {
-      return res.status(400).json({ message: 'Aluno ou profissional não cadastrado no sistema.' });
-    }
-
-    const newAppointment = await Appointment.create(req.body);
-    res.status(201).json({ message: 'Agendamento criado com sucesso!', newAppointment });
+    const result = await req.pool.query(
+      'INSERT INTO apae.appointments (title, start, fim, organizer, participants, descricao, color, status) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *',
+      [appointment.title, appointment.start, appointment.fim, appointment.organizer, appointment.participants, appointment.descricao, appointment.color, appointment.status]
+    );
+    res.json({ message: 'Agendamento criado com sucesso!', newAppointment: result.rows[0] });
   } catch (err) {
-    res.status(500).json({ message: 'Erro ao criar agendamento.', error: err.message });
+    res.status(400).json({ message: err.message });
   }
 });
 
-router.delete('/:id', async (req, res) => {
-  const { id } = req.params;
-
+router.put('/:pid', async (req, res) => {
+  const pid = req.params.pid;
+  const appointment = req.body;
   try {
-    await Appointment.findByIdAndDelete(id);
-    res.json({ message: 'Agendamento excluído com sucesso!' });
+    const result = await req.pool.query(
+      'UPDATE apae.appointments SET title = $1, start = $2, fim = $3, organizer = $4, participants = $5, descricao = $6, color = $7, status = $8 WHERE id = $9 RETURNING *',
+      [appointment.title, appointment.start, appointment.fim, appointment.organizer, appointment.participants, appointment.descricao, appointment.color, appointment.status, pid]
+    );
+    res.json({ message: 'Agendamento alterado com sucesso!', updatedAppointment: result.rows[0] });
   } catch (err) {
-    res.status(400).json({ message: 'Erro ao excluir agendamento.', error: err.message });
+    res.status(400).json({ message: err.message });
   }
 });
 
-
+router.delete('/:pid', async (req, res) => {
+  const pid = req.params.pid;
+  try {
+    const result = await req.pool.query('DELETE FROM apae.appointments WHERE id = $1 RETURNING *', [pid]);
+    res.json({ message: 'Agendamento deletado com sucesso!', deletedAppointment: result.rows[0] });
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+});
 
 module.exports = router;

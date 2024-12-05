@@ -18,7 +18,7 @@ function Calendario(){
         id: uuidv4(),
         title: 'Leonardo',
         start: new Date(2024, 1, 19, 10, 0),
-        end: new Date(2024, 1, 20, 15, 0),
+        fim: new Date(2024, 1, 20, 15, 0),
         organizer: 'Dr. Fernando',
         participants: 'Leonardo',
         desc: 'alguma coisa',
@@ -32,7 +32,7 @@ function Calendario(){
     const [formData, setFormData] = useState({
         title: '',
         start: '',
-        end: '',
+        fim: '',
         organizer: '',
         participants: '',
         desc: '',
@@ -84,7 +84,7 @@ function Calendario(){
         const novoEvento = {
             ...formData,
             start: new Date(formData.start),
-            end: new Date(formData.end),
+            fim: new Date(formData.fim),
             color: getColorByStatus(formData.status),
         };
     
@@ -93,7 +93,7 @@ function Calendario(){
         setFormData({
             title: '',
             start: '',
-            end: '',
+            fim: '',
             organizer: '',
             participants: '',
             desc: '',
@@ -144,13 +144,13 @@ function Calendario(){
     const [eventoSelecionado, setEventoSelecionado] = useState(null);
 
     const moverEventos = (data) => {
-        const {start, end} = data;
+        const {start, fim} = data;
         const uptadeEvents = eventos.map((event) => {
             if( event.id === data.event.id){
                 return{
                     ...event,
                     start: new Date(start),
-                    end: new Date(end)
+                    fim: new Date(fim)
                 }
             }
             return event;
@@ -235,7 +235,7 @@ function Calendario(){
                                 <AiOutlineClose className="button-fechar" onClick={handleEventClose}/>
                             </div>
                             <p>Início: {eventoSelecionado?.start.toLocaleString()}</p>
-                            <p>Final: {eventoSelecionado?.end.toLocaleString()}</p>
+                            <p>Final: {eventoSelecionado?.fim.toLocaleString()}</p>
                             <p>Profissional: {eventoSelecionado?.organizer}</p>
                             <p>Status: {eventoSelecionado.status}</p>
                             <p>{eventoSelecionado?.desc}</p>
@@ -258,7 +258,7 @@ function Calendario(){
                                 <input className='input-text' type="text" name="participants" placeholder="Aluno" value={formData.participants} onChange={handleChange} required />
                                     <div className='container-data'>
                                         <input type="datetime-local" className="input-data" name="start" placeholder="Início" value={formData.start} onChange={handleChange} required />
-                                        <input type="datetime-local" className="input-data" name="end" placeholder="Fim" value={formData.end} onChange={handleChange} required />
+                                        <input type="datetime-local" className="input-data" name="fim" placeholder="Fim" value={formData.fim} onChange={handleChange} required />
                                     </div>
                                 <input className='input-text' type="text" name="profissional" placeholder="Profissional" value={formData.organizer} onChange={handleChange} required />
                                 <div className='select-status'>
