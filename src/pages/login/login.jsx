@@ -1,46 +1,47 @@
-import {FaUser, FaLock} from 'react-icons/fa';
+import { FaUser, FaLock } from 'react-icons/fa';
 import { useState } from 'react';
 import "./Login.css";
 import React from 'react';
 import Logo from "../../imgs/logo_certa.png";
 import { useNavigate } from 'react-router-dom';
 
-
 const Login = () => {
-
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [checkbox, setLembre] = useState("");
-
+  const [username, setUsername] = useState(""); // Corrigido para username
+  const [password, setPassword] = useState(""); // Corrigido para password
+  const [rememberMe, setRememberMe] = useState(false); // Corrigido para booleano
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    //fetch dos dados
-    //adicionado de exemplo, mudar e fazer ajustes como necessário
-    //precisa adicionar o URL do banco
+    if (!username || !password) {
+      alert('Por favor, preencha ambos os campos.');
+      return;
+    }
+
     try {
-      const response = await fetch("URL_DO_SEU_BACKEND", {
-        method: "POST",
+      const response = await fetch("http://localhost:5050/api/auth/login", {
+        method: "POST", 
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify({ author_user: username, author_pwd: password }), // Dados enviados para o backend
       });
-  
+
+      const data = await response.json();
+
       if (response.ok) {
-        navigate("/home"); 
+        // Login bem sucedido, redirecionado para a página "/home"
+        navigate("/home");
       } else {
-        alert("Falha na autenticação. Verifique suas credenciais.");
+        // Exibe um erro se a autenticação falha
+        alert(data.message || "Falha na autenticação. Verifique suas credenciais.");
       }
     } catch (error) {
       console.error("Erro na autenticação:", error);
       alert("Erro de rede. Tente novamente mais tarde.");
     }
-
-    navigate("/home")
-  }
+  };
 
   return (
     <div className='container_login'>
@@ -81,7 +82,7 @@ const Login = () => {
         </form>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default Login;
