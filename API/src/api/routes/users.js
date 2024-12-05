@@ -1,122 +1,113 @@
+// module.exports = router;
 const express = require('express');
 const router = express.Router();
-
-//MONGODB
-const mongoose = require('mongoose');
-mongoose.connect('mongodb://127.0.0.1:27017/bc', { useNewUrlParser: true, useUnifiedTopology: true });
-mongoose.connection.on('connected', () => {
-  console.log('MongoDB conectado');
-});
-
-const usersSchema = new mongoose.Schema({
-  author_name: String,
-  author_email: String,
-  author_user: String,
-  author_pwd: String,
-  author_level: String,
-  author_status: Boolean,
-  author_create_date: { type: Date, default: Date.now }
-});
-
-const User = mongoose.model('User', usersSchema); //MONGODB
-
-// Buscar usuários por nome
-router.get('/search', async (req, res) => {
-  const nome = req.query.name; // O nome será passado como parâmetro na query string
-  try {
-    const users = await User.find({ author_name: { $regex: nome, $options: 'i' } }); // Busca por nome parcial, case insensitive
-    res.json(users);
-  } catch (err) {
-    res.status(500).json({ message: 'Erro ao buscar usuários.', error: err.message });
-  }
-});
+const { Pool } = require('pg');
+const bcrypt = require('bcrypt');
+const pool = require('./db');
 
 // Retornar todos os usuários
 // GET "/users"
 router.get('/', async (req, res) => {
-  try {
-    const foundedUser = await User.find();
-    console.log('Objetos encontrados com sucesso!');
-    res.status(200).json(foundedUser);
-  } catch (err) {
-    res.status(400).json({ message: err.message });
-  }
-});
+    try {
+      const result = await pool.query('SELECT * FROM users');
+      console.log('Usuários encontrados com sucesso GET!');
+      res.status(200).json(result.rows);
+    } catch (err) {
+      console.error('Erro ao buscar usuários:', err.message);
+      res.status(400).json({ message: err.message });
+    }
+  });
+  
+  // Retornar um usuário específico
+  // GET "/users/:pid"
+  router.get('/:pid', async (req, res) => {
+    const pid = req.params.pid;
+    try {
+      const result = await pool.query('SELECT * FROM users WHERE id = $1', [pid]);
+      if (result.rows.length === 0) {
+        return res.status(404).json({ message: 'Usuário não encontrado.' });
+      }
+      console.log('Usuário encontrado com sucesso!');
+      res.json(result.rows[0]);
+    } catch (err) {
+      console.error('Erro ao buscar o usuário GET:', err.message);
+      res.status(400).json({ message: err.message });
+    }
+  });
+  
+  // Inserir um novo usuário
+  // POST "/users" BODY { ... }
+  router.post('/', async (req, res) => { 
+    const {author_name, author_email, author_user, author_pwd, author_level, author_status } = req.body;
+  
+    try {
+      const result = await pool.query(
+        'INSERT INTO users (author_name, author_email, author_user, author_pwd, author_level, author_status) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *',
+        [author_name, author_email, author_user, author_pwd, author_level, author_status]
+      );
+      console.log('Usuário salvo com sucesso!');
+      console.log(result.rows);
+      res.status(201).json({ message: 'Usuário salvo com sucesso!', user: result.rows[0] });
+    } catch (err) {
+      console.error('Erro ao salvar o usuário POST:', err.message);
+      res.status(400).json({ message: err.message });
+    }
+  });
 
-// Retornar um usuário específico
-// GET /users/:pid
-router.get('/:pid', async (req, res) => {
-  const pid = req.params.pid;
-  try {
-    const foundedUser = await User.findById( pid );
-    console.log('Objeto encontrado com sucesso!');
-    res.json({ message: 'Usuário encontrado com sucesso!', foundedUser });
-  } catch (err) {
-    res.status(400).json({ message: err.message });
-  }
-});
+  // router.post('/', async (req, res) => {
+  //   const user = req.body.user;
+  //   try {
+  //     const newUser = await User.create(user);
+  //     console.log('Objeto salvo com sucesso!');
+  //     res.json({ message: 'Usuário salvo com sucesso!', newUser });
+  //   } catch (err) {
+  //     res.status(400).json({ message: err.message });
+  //   }
+  // });
 
 
-// // Retornar um usuário específico
-// // GET /users/:user
-// router.get('/:user', async (req, res) => {
-//   const nome = req.params.user;
-//   try {
-//     const docs = await User.find({ author_name: nome });
-//     res.json(docs);
-//   } catch (err) {
-//     res.status(500).json({ error: err.message });
-//   }
-// });
 
-// Inserir um novo usuário
-// POST "/users" BODY { ... }
-router.post('/', async (req, res) => {
-  const user = req.body.user;
-  try {
-    const newUser = await User.create(user);
-    console.log('Objeto salvo com sucesso!');
-    res.json({ message: 'Usuário salvo com sucesso!', newUser });
-  } catch (err) {
-    res.status(400).json({ message: err.message });
-  }
-});
+   // Alterar um usuário
+  // PUT "/users/:pid" BODY { ... }
+  router.put('/:pid', async (req, res) => {
+    const pid = req.params.pid;
+    const { author_name, author_email, author_pwd, author_level, author_status } = req.body;
+  
+    try {
+      const result = await pool.query(
+        'UPDATE users SET author_name = $1, author_email =$2, author_pwd = $3, author_level = $4, author_status = $5 WHERE id = $6 RETURNING *',
+        [author_name, author_email, author_pwd, author_level, author_status, pid]
+      );
+      if (result.rows.length === 0) {
+        return res.status(404).json({ message: 'Usuário não encontrado.' });
+      }
+      console.log('Usuário atualizado com sucesso!');
+      res.json({ message: 'Usuário atualizado com sucesso!', user: result.rows[0] });
+    } catch (err) {
+      console.error('Erro ao atualizar o usuário PUT:', err.message);
+      res.status(400).json({ message: err.message });
+    }
+  });
 
-// Alterar um usuário
-// PUT "/users/:id" BODY { ... }
-router.put('/:pid', async (req, res) => {
-  const pid = req.params.pid;
-  const newUser = req.body.user;
-  console.log(newUser);
-  try {
-    const updatedUser = await User.findByIdAndUpdate(pid, 
-      { 
-        author_name: newUser.author_name, 
-        author_email: newUser.author_email,
-        author_pwd: newUser.author_pwd,
-        author_level: newUser.author_level,
-        author_status: newUser.author_status,
-      }, { new: true });
-    console.log('Objeto Atualizado:', updatedUser);
-    res.json({ message: 'Usuário alterado com sucesso!', updatedUser });
-    //res.json(updatedUser);
-  } catch (err) {
-    res.status(400).json({ message: err.message });
-  }
-});
 
-// Deletar um usuário
-// DELETE "/users/:id"
-router.delete('/:pid', async (req, res) => {
-  const pid = req.params.pid;
-  try {
-    const deletedUser = await User.findByIdAndDelete(pid);
-    console.log('Objeto deletado:', deletedUser);
-    res.json({ message: 'Usuário deletado com sucesso!', deletedUser });
-    //res.json(deletedUser);
-  } catch (err) {
-    res.status(400).json({ message: err.message });
-  }
-});
-
-module.exports = router;
+  
+  // Deletar um usuário
+  // DELETE "/users/:pid"
+  router.delete('/:pid', async (req, res) => {
+    const pid = req.params.pid;
+  
+    try {
+      const result = await pool.query('DELETE FROM users WHERE id = $1 RETURNING *', [pid]);
+      if (result.rows.length === 0) {
+        return res.status(404).json({ message: 'Usuário não encontrado.' });
+      }
+      console.log('Usuário deletado com sucesso!');
+      res.json({ message: 'Usuário deletado com sucesso!', user: result.rows[0] });
+    } catch (err) {
+      console.error('Erro ao deletar o usuário:', err.message);
+      res.status(400).json({ message: err.message });
+    }
+  });
+  
+  
+  module.exports = router;
